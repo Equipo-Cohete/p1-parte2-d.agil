@@ -19,6 +19,7 @@ undum.game.version = "1.0";
  * a mobile. */
 undum.game.mobileHide = 2000
 
+jQuery.fx.off = false
 /* A variable that changes the options fade out speed. */
 undum.game.fadeSpeed = 1500
 
@@ -32,10 +33,25 @@ undum.game.situations = {
         "<h1>Bienvenido a nuestro primer juego en Undum</h1>\
         <img src='media/games/tutorial/woodcut1.png' class='float_right'>\
         <p>Este es nuestro primer juego en Undum. Lo hemos realizado para\
-        tener un primer contacto con esta framework.\
-        \
-        <p class='transient'>Click <a href='hub'>this link to\
-        continue...</a></p>"
+        tener un primer contacto con esta framework.</p>\
+        <p>En este peque&ntildeo juego presentamos una historia que ocurre el\
+        día del examen final de desarrollo ágil</p>\
+        <p class='transient'>Click <a href='levantarse'>aquí para empezar...</a></p>"
+    ),
+    levantarse: new undum.SimpleSituation(
+        "<h1>29 de Mayo a las 7 de la mañana</h1>\
+        <p>Te levantas un viernes, 29 de mayo a las 7 de la mañana. Te preguntas por qué narices estas levantado a estas horas, \
+        cuando te das cuenta de que… ¡El examen de desarrollo ágil!</p>\
+        <p>Pero entonces resuenan unas palabras en tu cabeza, eran las palabras de Victorcillo, diciendo que nos iba a suspender\
+        a todos igualmente, así que se te ocurren 2 opciones:</p>\
+        <p class='transient'><a href='final1'>No ir, si total, estoy suspenso.</a></p>\
+		<p class='transient'><a href='levantarse'>Levantarme e ir, está mal hacerle el feo a Víctor.</a></p>"
+    ),
+    final1: new undum.SimpleSituation(
+        "<h1>Que agusto se está en la cama</h1>\
+        <p>Has decidido no levantarte y sigues durmiendo hasta 13:00 de ese mismo día.</p>\
+        <p>Te levantas y preguntas a tus compañeros cómo ha salido el examen. Te cuentan que cómo Victor dijo, todo el mundo ha suspendido.</p>\
+        <p>Eres feliz, has dormido tus doce horas diarias de sueño y al menos no eres el único que ha suspendido.</p>"
     ),
 };
 
@@ -48,23 +64,6 @@ undum.game.start = "start";
  * possess. We don't have to be exhaustive, but if we miss one out then
  * that quality will never show up in the character bar in the UI. */
 undum.game.qualities = {
-    skill: new undum.IntegerQuality(
-        "Skill", {priority:"0001", group:'stats'}
-    ),
-    stamina: new undum.NumericQuality(
-        "Stamina", {priority:"0002", group:'stats'}
-    ),
-    luck: new undum.FudgeAdjectivesQuality( // Fudge as in the FUDGE RPG
-        "<span title='Skill, Stamina and Luck are reverently borrowed from the Fighting Fantasy series of gamebooks. The words representing Luck are from the FUDGE RPG. This tooltip is illustrating that you can use any HTML in the label for a quality (in this case a span containing a title attribute).'>Luck</span>",
-        {priority:"0003", group:'stats'}
-    ),
-
-    inspiration: new undum.NonZeroIntegerQuality(
-        "Inspiration", {priority:"0001", group:'progress'}
-    ),
-    novice: new undum.OnOffQuality(
-        "Novice", {priority:"0002", group:'progress', onDisplay:"&#10003;"}
-    )
 };
 
 // ---------------------------------------------------------------------------
@@ -75,17 +74,11 @@ undum.game.qualities = {
  * non-existent group. */
 undum.game.qualityGroups = {
     stats: new undum.QualityGroup(null, {priority:"0001"}),
-    progress: new undum.QualityGroup('Progress', {priority:"0002"})
 };
 
 // ---------------------------------------------------------------------------
 /* This function gets run before the game begins. It is normally used
  * to configure the character at the start of play. */
 undum.game.init = function(character, system) {
-    character.qualities.skill = 12;
-    character.qualities.stamina = 12;
-    character.qualities.luck = 0;
-    character.qualities.novice = 1;
-    character.qualities.inspiration = 0;
-    system.setCharacterText("<p>You are starting on an exciting journey.</p>");
+    system.setCharacterText("<p>Estás empezando una fantástico día.</p>");
 };
