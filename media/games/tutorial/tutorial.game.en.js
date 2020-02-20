@@ -45,7 +45,7 @@ undum.game.situations = {
         <p>Pero entonces resuenan unas palabras en tu cabeza, eran las palabras de Victorcillo, diciendo que nos iba a suspender\
         a todos igualmente, así que se te ocurren 2 opciones:</p>\
         <p class='transient'><a href='final1'>No ir, si total, estoy suspenso.</a></p>\
-		<p class='transient'><a href='levantarse'>Levantarme e ir, está mal hacerle el feo a Víctor.</a></p>"
+		<p class='transient'><a href='continuar'>Levantarme e ir, está mal hacerle el feo a Víctor.</a></p>"
     ),
     final1: new undum.SimpleSituation(
         "<h1>Que agusto se está en la cama</h1>\
@@ -53,6 +53,38 @@ undum.game.situations = {
         <p>Te levantas y preguntas a tus compañeros cómo ha salido el examen. Te cuentan que cómo Victor dijo, todo el mundo ha suspendido.</p>\
         <p>Eres feliz, has dormido tus doce horas diarias de sueño y al menos no eres el único que ha suspendido.</p>"
     ),
+    continuar: new undum.SimpleSituation(
+        "<h1>Hay que ser optimistas siempre</h1>\
+        <p>Decides levantarte y avanzar intentando discernir entre la penumbra de tu habitación, esquivando todos los apuntes tirados por el suelo</p>\
+        <p class='trasient'>Tengo que <a href='vestirse'>vestirme</a> y <a href='desayunar'>desayunar</a> te dices a ti mismo</p>"	 
+    ), 
+
+    vestirse: new undum.SimpleSituation(
+        "<h1>Lo pantalones siempre son lo primero</h1>\
+        <p>Te vistes de pies a cabeza luchando contra el sueño por no poder dormir tus 12 horitas del día y te encaminas hacia <a href='desayunar2'>desayunar</a></p>"	 
+    ),
+
+
+    desayunar: new undum.SimpleSituation(
+        "<h1>Verde que te quiero verde</h1>\
+        <p class=trasient>Me preparo un desayuno ligero, sano, con frutita y todo, y me lo tomo mientras me leo el Manifiesto Ágil, como hago todas las mañanas. Y voy a <a href='vestirse2'>vestirme</a></p>"	 
+    ),    
+
+    vestirse2: new undum.SimpleSituation(
+        "<h1>Lo pantalones siempre son lo primero</h1>\
+        <p>Decides levantarte y avanzar intentando discernir entre la penumbra de tu habitación, esquivando todos los apuntes tirados por el suelo. Y me dirigo hacia <a href='salon'>el salon</a></p>"	 
+    ), 
+
+    desayunar2: new undum.SimpleSituation(
+        "<h1>Verde que te quiero verde</h1>\
+        <p class= trasient>Me preparo un desayuno ligero, sano, con frutita y todo, y me lo tomo mientras me leo el Manifiesto Ágil, como hago todas las mañanas. Y me dirigo hacia <a href='salon'>el salon</a></p>"	 
+    ), 
+
+    salon: new undum.SimpleSituation(
+        "<h1>Ya has terminado</h1>\
+        <p>Ahora queda prepararte, tienes que coger la mochila de tu cuarto y coger las llaves del portallaves</p>"	 
+    ), 
+
 };
 
 // ---------------------------------------------------------------------------
@@ -64,6 +96,12 @@ undum.game.start = "start";
  * possess. We don't have to be exhaustive, but if we miss one out then
  * that quality will never show up in the character bar in the UI. */
 undum.game.qualities = {
+	mochila: new undum.OnOffQuality(
+	"Mochila", {priority:"0001", group:'estudiante', onDisplay:"V"}
+ 	 ),
+  llaves: new undum.OnOffQuality(
+  "Llaves", {priority:"0002", group:'estudiante', onDisplay:"V"}
+	)
 };
 
 // ---------------------------------------------------------------------------
@@ -73,12 +111,14 @@ undum.game.qualities = {
  * the end. It is an error to have a quality definition belong to a
  * non-existent group. */
 undum.game.qualityGroups = {
-    stats: new undum.QualityGroup(null, {priority:"0001"}),
+    estudiante: new undum.QualityGroup('Estudiante', {priority:"0001"}),
 };
 
 // ---------------------------------------------------------------------------
 /* This function gets run before the game begins. It is normally used
  * to configure the character at the start of play. */
 undum.game.init = function(character, system) {
+    system.setQuality("mochila", false )
+    system.setQuality("llaves", false )
     system.setCharacterText("<p>Estás empezando una fantástico día.</p>");
 };
